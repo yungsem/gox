@@ -41,5 +41,5 @@ func OpenFile(fileName string) (*os.File, error) {
 	if _, err := os.Stat(fileName); os.IsNotExist(err) {
 		return os.Create(fileName)
 	}
-	return os.OpenFile(fileName, os.O_APPEND, 0666)
+	return os.OpenFile(fileName, os.O_APPEND|os.O_WRONLY, 0666)
 }
