@@ -36,10 +36,30 @@ func readLine(r *bufio.Reader) (string, error) {
 	return string(ln), err
 }
 
-// OpenFile 判断文件是否存在，存在则 OpenFile 不存在则 Create
-func OpenFile(fileName string) (*os.File, error) {
-	if _, err := os.Stat(fileName); os.IsNotExist(err) {
-		return os.Create(fileName)
+// CreateFile 创建一个没有任何内容的全新文件
+// 如果文件已经存在，则清空该文件的内容
+func CreateFile(name string) (*os.File, error) {
+	return os.OpenFile(name, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0666)
+}
+
+// OpenFile 打开一个文件
+// 如果文件不存在，则创建一个
+func OpenFile(name string) (*os.File, error) {
+	return os.OpenFile(name, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+}
+
+// MakeDir 创建单层目录或多层目录
+// 如果目录已经存在，则什么都不干
+func MakeDir(name string) error {
+	return os.MkdirAll(name, os.ModeDir)
+}
+
+// ClearDir 清空目录下的所有内容
+func ClearDir(name string) error {
+	err := os.RemoveAll(name)
+	if err != nil {
+		return err
 	}
-	return os.OpenFile(fileName, os.O_APPEND|os.O_WRONLY, 0666)
+
+	return os.MkdirAll(name, os.ModeDir)
 }
