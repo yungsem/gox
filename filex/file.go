@@ -36,9 +36,9 @@ func readLine(r *bufio.Reader) (string, error) {
 	return string(ln), err
 }
 
-// CreateFile 创建一个没有任何内容的全新文件
+// MakeFile 创建一个没有任何内容的全新文件
 // 如果文件已经存在，则清空该文件的内容
-func CreateFile(name string) (*os.File, error) {
+func MakeFile(name string) (*os.File, error) {
 	return os.OpenFile(name, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0666)
 }
 
@@ -54,8 +54,9 @@ func MakeDir(name string) error {
 	return os.MkdirAll(name, os.ModeDir)
 }
 
-// ClearDir 清空目录下的所有内容
-func ClearDir(name string) error {
+// ClearOrMakeDir 清空目录下的所有内容
+// 如果目录不存在，则创建
+func ClearOrMakeDir(name string) error {
 	err := os.RemoveAll(name)
 	if err != nil {
 		return err

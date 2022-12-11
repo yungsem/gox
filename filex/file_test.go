@@ -61,7 +61,7 @@ func TestMakeDir1(t *testing.T) {
 	}
 }
 
-func TestClearDir(t *testing.T) {
+func TestClearOrMakeDir(t *testing.T) {
 	type args struct {
 		name string
 	}
@@ -101,14 +101,14 @@ func TestClearDir(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := ClearDir(tt.args.name); (err != nil) != tt.wantErr {
+			if err := ClearOrMakeDir(tt.args.name); (err != nil) != tt.wantErr {
 				t.Errorf("ClearDir() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}
 }
 
-func TestCreateFile(t *testing.T) {
+func TestMakeFile(t *testing.T) {
 	type args struct {
 		name string
 	}
@@ -135,7 +135,7 @@ func TestCreateFile(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_, err := CreateFile(tt.args.name)
+			_, err := MakeFile(tt.args.name)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("CreateFile() error = %v, wantErr %v", err, tt.wantErr)
 				return
