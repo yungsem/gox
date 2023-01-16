@@ -108,7 +108,7 @@ func (l *Logx) Error(s string) {
 
 // ErrorF 输出级别为 Error 的日志，格式化输出
 func (l *Logx) ErrorF(format string, v ...interface{}) {
-	l.output(Info, fmt.Sprintf(format, v...))
+	l.output(Error, fmt.Sprintf(format, v...))
 }
 
 // ErrorE 输出级别为 Error 的日志
